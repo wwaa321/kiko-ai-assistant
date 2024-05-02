@@ -1,0 +1,22 @@
+<configuration>
+    <llm_setting>
+        <now_llm>Ollama&#26412;&#22320;&#22823;&#27169;&#22411;</now_llm>
+        <system_prompt>&#20320;&#26159;&#25105;&#30340;&#31169;&#20154;&#21161;&#25163;&#65292;&#24615;&#26684;&#26159;&#20658;&#23047;&#22823;&#23567;&#22992;&#65292;&#35831;&#21518;&#38754;&#20197;&#36825;&#31181;&#21475;&#21563;&#36319;&#25105;&#23545;&#35805;</system_prompt>
+        <temperature>0.7</temperature>
+    </llm_setting>
+    <xinghuo_api>
+        <appid></appid>
+        <api_secret></api_secret>
+        <api_key></api_key>
+        <version>v3.5</version>
+    </xinghuo_api>
+    <qwen_api>
+        <api_key></api_key>
+        <model></model>
+    </qwen_api>
+    <ollama_api>
+        <api_url>http://127.0.0.1:11434/v1</api_url>
+        <model></model>
+    </ollama_api>
+    <obsidian_api></obsidian_api>
+</configuration>
