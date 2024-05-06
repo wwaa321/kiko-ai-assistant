@@ -1,6 +1,6 @@
 # kiko-ai-assistant
 "Kiko AI助手"是一款集成了先进的生成式人工智能技术的Obsidian辅助工具。它能够为您的Obsidian添加一颗强大的AI大脑，成为你的私人秘书，帮助你更高效的管理由Obsidian构建的笔记和知识库。
-![[https://github.com/wwaa321/kiko-ai-assistant/blob/main/Kiko-ai-assistant.jpg?raw=true]]
+![](https://github.com/wwaa321/kiko-ai-assistant/blob/main/Kiko-ai-assistant.jpg?)
 ### 主要特性：
 
 **1. 独立的桌面端应用：** 这意味着即使在Obsidian未运行的情况下，您也可以正常使用它的部分功能。此外，它还可以轻松地将来自浏览器、Word等不同软件的信息与您的Obsidian笔记进行交互和存储，使信息管理变得更加便捷高效。
