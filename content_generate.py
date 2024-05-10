@@ -7,7 +7,7 @@ root=tree.getroot()
 
 system_prompt=root.find('llm_setting/system_prompt').text
 
-#ollama-------------------------------------
+#ollama会话配置-------------------------------------start
 now_ollama_url=root.find('ollama_api/api_url').text
 
 client = OpenAI(
@@ -35,39 +35,39 @@ def conversation_ollama(content):
     message.append({"role": "assistant", "content": "{}".format(answer)})
     return answer
 
-#ollama-------------------------------------
+#ollama会话配置-------------------------------------end
 
 
-#qwen-------------------------------------
-import dashscope
-from http import HTTPStatus
+#阿里云dashscope-------------------------------------start
 
-
-qwen_api_key_info=root.find('qwen_api/api_key').text
-qwen_model_info=root.find('qwen_api/model').text
-
-dashscope.api_key = qwen_api_key_info
+dashscope_message=[{"role": "system", "content": "{}".format(system_prompt)},
+  ]
 def conversation_qwen(content):
-    
-    resp=dashscope.Generation.call(
-        model="{}".format(qwen_model_info),
-        prompt=content,
-    )
+    qwen_api_key_info=root.find('qwen_api/api_key').text
+    qwen_model_info=root.find('qwen_api/model').text
+    dashscope_message.append({"role": "user", "content": "{}".format(content)})
+    client = OpenAI(
+    api_key=f"{qwen_api_key_info}",  # 替换成真实DashScope的API_KEY
+    base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",  # 填写DashScope服务endpoint
+)
 
-    if resp.status_code == HTTPStatus.OK:
-        answer = resp.output['text']
+    try:
+        response=client.chat.completions.create(
+            model=qwen_model_info,
+            messages=dashscope_message
+        )
+        answer=response.choices[0].message.content
+    except Exception as e:
+        answer= "很抱歉，目前无法处理您的请求，请稍后再试。"
+    dashscope_message.append({"role": "assistant", "content": "{}".format(answer)})
+    return answer
 
-        return answer
-    else:
 
-        return "很抱歉，目前无法处理您的请求，请稍后再试。"
-
-
-#qwen-------------------------------------
+#阿里云dashscope------------------------------------end
 
 
 
-#讯飞星火-------------------------------------
+#讯飞星火-------------------------------------start
 #以下密钥信息从控制台获取
 appid = root.find('xinghuo_api/appid').text  #填写控制台中获取的 APPID 信息
 api_secret = root.find('xinghuo_api/api_secret').text  #填写控制台中获取的 APISecret 信息
