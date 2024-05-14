@@ -29,6 +29,9 @@ class GeneratecontentThred(QThread):
                 
             case 'Ollama本地大模型': #ollama
                 text=content_generate.conversation_ollama(prompt)  #ollama调用调试
+            
+            case 'Kimi': #kimi
+                text=content_generate.conversation_kimi(prompt)
 
 
         self.content_generate_signal.emit(text)
@@ -94,6 +97,30 @@ class Main(QMainWindow):
         self.button_favorites.setIcon(self.favorites_icon)
         self.button_favorites.clicked.connect(self.favorites)
 
+        #系统托盘相关代码----开始
+        self.tray_icon = QSystemTrayIcon(self)
+        self.tray_icon.setIcon(QIcon('img/logo.png'))  # 设置托盘图标
+
+        show_action = QAction("显示", self)
+        quit_action = QAction("退出", self)
+        show_action.triggered.connect(self.show)
+        quit_action.triggered.connect(self.quit)
+        tray_menu = QMenu()
+        tray_menu.addAction(show_action)
+        tray_menu.addAction(quit_action)
+        self.tray_icon.setContextMenu(tray_menu)
+        self.tray_icon.show()
+
+    def closeEvent(self, event):
+        if self.tray_icon.isVisible():
+            QMessageBox.information(self, "系统托盘", "程序将继续在系统托盘运行。")
+            self.hide()
+            event.ignore()
+    def quit(self):
+        QApplication.quit()
+    #系统托盘相关代码----结束
+
+
     def toggle_visibility(self):
         if self.isMinimized():
             self.showNormal()  # 如果窗口已经是最小化状态，则恢复到正常大小
@@ -151,7 +178,7 @@ class Main(QMainWindow):
     def save_obsidian(self):
         tree=ET.parse('configuration.xml')
         root=tree.getroot()
-        obsidian_api=root.find('obsidian_api').text
+        obsidian_api=root.find('obsidian/obsidian_api').text
         content = self.output.toPlainText()
         url = 'http://127.0.0.1:27123/active/'
         headers = {
@@ -169,30 +196,44 @@ class Main(QMainWindow):
     def favorites(self):
         tree=ET.parse('configuration.xml')
         root=tree.getroot()
-        obsidian_api=root.find('obsidian_api').text
-        date_time_now=datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
-        input_text = self.input.toPlainText()
-        # 移除所有空行
-        processed_text = re.sub(r'^\s*$\n', '', input_text, flags=re.MULTILINE)
+        obsidian_api=root.find('obsidian/obsidian_api').text
+        obsidian_favorite_folder=root.find('obsidian/obsidian_favorite_folder').text
+        obsidian_favorite_file=root.find('obsidian/obsidian_favorite_file').text
+        print(obsidian_favorite_folder)
+        if obsidian_favorite_folder ==None:
+            
+            message=QMessageBox()
+            message.about(self,'提示','请先设置收藏夹')  
+            return
+        elif obsidian_favorite_file==None:
+            message=QMessageBox()
+            message.about(self,'提示','请先设置收藏文件')  
+            return
+        else:
+            print('test')
+                
+            date_time_now=datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
+            input_text = self.input.toPlainText()
+                # 移除所有空行
+            processed_text = re.sub(r'^\s*$\n', '', input_text, flags=re.MULTILINE)
 
-        content = "\n >[!Abstract] 收藏  {} \n >{}".format(date_time_now,processed_text)
-        url = 'http://127.0.0.1:27123/active/'
-        headers = {
-            'accept': '*/*',
-            'Content-Type': 'text/markdown',
-            'Authorization': 'Bearer {}'.format(obsidian_api)
-        }
-        data = content.encode('utf-8')
-
-        response = requests.post(url, headers=headers, data=data, verify=False)
-        message=QMessageBox()
-        message.about(self,'提示','保存成功')
+            content = "\n >[!Abstract] 收藏  {} \n >{}".format(date_time_now,processed_text)
+            url = f'http://127.0.0.1:27123/vault/{obsidian_favorite_folder}/{obsidian_favorite_file}.md'
+            headers = {
+                        'accept': '*/*',
+                        'Content-Type': 'text/markdown',
+                        'Authorization': 'Bearer {}'.format(obsidian_api)
+                    }
+            data = content.encode('utf-8')
+            requests.post(url, headers=headers, data=data, verify=False)
+            message=QMessageBox()
+            message.about(self,'提示','保存成功')        
 
 
     def improt_now_note(self):
         tree=ET.parse('configuration.xml')
         root=tree.getroot()
-        obsidian_api=root.find('obsidian_api').text
+        obsidian_api=root.find('obsidian/obsidian_api').text
         url = 'http://127.0.0.1:27123/active/'
         headers = {
                 'accept': '*/*',
@@ -214,7 +255,7 @@ class Main(QMainWindow):
         set_obsidian_apiw.show()
 
     def product_info(self):
-        text='"Kiko AI助手"是一款集成了先进的生成式人工智能技术的Obsidian辅助工具。它能够为您的Obsidian添加一颗强大的AI大脑，成为你的私人秘书，帮助你更高效的管理由Obsidian构建的笔记和知识库。\n当前版本：v1.3 \n官网：www.moaono.com'
+        text='"Kiko AI助手"是一款集成了先进的生成式人工智能技术的Obsidian辅助工具。它能够为您的Obsidian添加一颗强大的AI大脑，成为你的私人秘书，帮助你更高效的管理由Obsidian构建的笔记和知识库。\n当前版本：v1.5 \n官网：www.moaono.com\nicon by icons8'
         self.output.setText(text)
 
     def help_info(self):
@@ -230,18 +271,21 @@ class Main(QMainWindow):
 class Set_obsidian_api(QWidget):
     tree=ET.parse('configuration.xml')
     root=tree.getroot()
-    now_api_key=root.find('obsidian_api').text
+    now_api_key=root.find('obsidian/obsidian_api').text
+    now_favorite_folder=root.find('obsidian/obsidian_favorite_folder').text
+    now_favorite_file=root.find('obsidian/obsidian_favorite_file').text
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("设置Obsidian API")
-        self.resize(500,200)
+        self.setWindowTitle("配置Obsidian相关功能")
+        self.resize(550,300)
         self.setWindowFlags(self.windowFlags() | Qt.WindowStaysOnTopHint)
         self.setWindowIcon(QIcon('img/logo.png'))
         self.setFixedSize(self.width(),self.height())
         self.about_text=QTextBrowser()
         self.about_text.setText("在此处输入你的API KEY，你需要安装Local REST API插件，然后开启无需验证模式")
-        self.about_text.setFixedSize(480,50)
+        self.about_text.setFixedSize(530,50)
         self.about_text.setStyleSheet("background-color: transparent;")
+        self.set_api_key=QLabel("API KEY")
         self.set_api=QLineEdit()
         if self.now_api_key=="":
             #self.set_api.clear()
@@ -250,19 +294,39 @@ class Set_obsidian_api(QWidget):
             self.set_api.setText(self.now_api_key)
         
         self.set_api.setFixedHeight(35)
+        
+        self.from_favorite=QFormLayout()
+        self.from_favorite.setSpacing(10)
+        self.from_favorite.addRow(self.set_api_key,self.set_api)
+        self.folder=QLabel("收藏文件夹")
+        self.folder_name=QLineEdit()
+        self.folder_name.setText(self.now_favorite_folder)
+        self.folder_name.setPlaceholderText("在此处输入文件夹名称")
+        self.folder_name.setFixedHeight(35)
+        self.from_favorite.addRow(self.folder,self.folder_name)
+        self.favorite=QLabel("收藏文件名")
+        self.favorite_name=QLineEdit()
+        self.favorite_name.setText(self.now_favorite_file)
+        self.favorite_name.setPlaceholderText("在此处输入文件名")
+        self.favorite_name.setFixedHeight(35)
+        self.from_favorite.addRow(self.favorite,self.favorite_name)
         self.submit_button=QPushButton("提交")
         self.submit_button.setFixedSize(250,45)
         self.button_layout=QHBoxLayout()
         self.button_layout.addWidget(self.submit_button)
         self.froms_layout=QVBoxLayout()
         self.froms_layout.addWidget(self.about_text)
-        self.froms_layout.addWidget(self.set_api)
+        #self.froms_layout.addWidget(self.set_api)
+        self.froms_layout.addLayout(self.from_favorite)
         self.froms_layout.addLayout(self.button_layout)
+        
         self.setLayout(self.froms_layout)
         self.submit_button.clicked.connect(self.updata_api)
 
     def updata_api(self):
-        self.root.find('obsidian_api').text=self.set_api.text()
+        self.root.find('obsidian/obsidian_api').text=self.set_api.text()
+        self.root.find('obsidian/obsidian_favorite_folder').text=self.folder_name.text()
+        self.root.find('obsidian/obsidian_favorite_file').text=self.favorite_name.text()
         self.tree.write('configuration.xml')
         QMessageBox.about(self,'提醒','保存成功,需重启软件使设置生效')
        # 关闭整个程序
@@ -288,6 +352,10 @@ class Llm_set(QWidget):
 
     qwen_api_key_info=root.find('qwen_api/api_key').text
     qwen_model_info=root.find('qwen_api/model').text
+
+    kimi_api_key_info=root.find('kimi_api/api_key').text
+    kimi_model_info=root.find('kimi_api/model').text
+
     def __init__(self):
         super().__init__()
         self.llm_ui=llm_config.Ui_Form_llm_config()
@@ -318,6 +386,11 @@ class Llm_set(QWidget):
         self.qwen_model=self.llm_ui.lineEdit_qwen_model
         self.qwen_model.setText(self.qwen_model_info)
         self.save_button.clicked.connect(self.save_setting)
+        self.kimi_api_key=self.llm_ui.lineEdit_kimi_api_key
+        self.kimi_api_key.setText(self.kimi_api_key_info)
+        self.kimi_model=self.llm_ui.comboBox_kimi_model
+        self.kimi_model.setCurrentText(self.kimi_model_info)
+
 
     def save_setting(self):
         self.root.find('llm_setting/now_llm').text=self.now_llm.currentText()
@@ -331,6 +404,8 @@ class Llm_set(QWidget):
         self.root.find('ollama_api/model').text=self.ollama_model.text()
         self.root.find('qwen_api/api_key').text=self.qwen_api_key.text()
         self.root.find('qwen_api/model').text=self.qwen_model.text()
+        self.root.find('kimi_api/api_key').text=self.kimi_api_key.text()
+        self.root.find('kimi_api/model').text=self.kimi_model.currentText()
         self.tree.write('configuration.xml')
         QMessageBox.about(self,'提醒','保存成功,需重启软件使设置生效')
         QApplication.quit()
@@ -370,7 +445,7 @@ if __name__=='__main__':
     tree=ET.parse('configuration.xml')
     root=tree.getroot()
 
-    now_obsidian_api=root.find('obsidian_api').text  # 修改变量名以避免混淆
+    now_obsidian_api=root.find('obsidian/obsidian_api').text  # 修改变量名以避免混淆
 
     # 检查每个配置项是否为空，并根据需要显示设置窗口
     if not now_obsidian_api:

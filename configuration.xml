@@ -1,22 +1,31 @@
 <configuration>
     <llm_setting>
-        <now_llm>Ollama&#26412;&#22320;&#22823;&#27169;&#22411;</now_llm>
+        <now_llm>&#36890;&#20041;&#21315;&#38382;</now_llm>
         <system_prompt>&#20320;&#26159;&#25105;&#30340;&#31169;&#20154;&#21161;&#25163;&#65292;&#24615;&#26684;&#26159;&#20658;&#23047;&#22823;&#23567;&#22992;&#65292;&#35831;&#21518;&#38754;&#20197;&#36825;&#31181;&#21475;&#21563;&#36319;&#25105;&#23545;&#35805;</system_prompt>
         <temperature>0.7</temperature>
     </llm_setting>
     <xinghuo_api>
-        <appid></appid>
-        <api_secret></api_secret>
-        <api_key></api_key>
+        <appid>f7d296c7</appid>
+        <api_secret>OTk4NWFiODFiYThlM2FkOTdlNTZhZmM2</api_secret>
+        <api_key>7836eb7fa7d0367eba9d2587d49ed2b6</api_key>
         <version>v3.5</version>
     </xinghuo_api>
     <qwen_api>
-        <api_key></api_key>
-        <model></model>
+        <api_key>sk-4e30708ded594c528a398a2892c36d6d</api_key>
+        <model>qwen-turbo</model>
     </qwen_api>
     <ollama_api>
         <api_url>http://127.0.0.1:11434/v1</api_url>
-        <model></model>
+        <model>gemma</model>
     </ollama_api>
-    <obsidian_api></obsidian_api>
+    <kimi_api>
+        <api_key>sk-aV6HPOaIUGwtxk4KSDB6sEiN8947wC52zJAL2jKPOL1K3Ee7</api_key>
+        <model>moonshot-v1-8k</model>
+    </kimi_api>
+    <obsidian>
+        <obsidian_api>5beb77e737f1950f07fad0d652c57042e63051e61ae60c143db27ce269c1bf9d</obsidian_api>
+        <obsidian_favorite_folder>&#25910;&#34255;</obsidian_favorite_folder>
+        <obsidian_favorite_file>&#25910;&#34255;</obsidian_favorite_file>
+    </obsidian>
+    
 </configuration>

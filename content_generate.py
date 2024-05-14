@@ -6,6 +6,7 @@ tree=ET.parse('configuration.xml')
 root=tree.getroot()
 
 system_prompt=root.find('llm_setting/system_prompt').text
+temperature=float(root.find('llm_setting/temperature').text)
 
 #ollama会话配置-------------------------------------start
 now_ollama_url=root.find('ollama_api/api_url').text
@@ -25,7 +26,8 @@ def conversation_ollama(content):
     try:
         response = client.chat.completions.create(
             model=llm_model,
-            messages=message
+            messages=message,
+            temperature=temperature,
         )
         answer = response.choices[0].message.content
     except Exception as e:
@@ -40,12 +42,11 @@ def conversation_ollama(content):
 
 #阿里云dashscope-------------------------------------start
 
-dashscope_message=[{"role": "system", "content": "{}".format(system_prompt)},
-  ]
+
 def conversation_qwen(content):
     qwen_api_key_info=root.find('qwen_api/api_key').text
     qwen_model_info=root.find('qwen_api/model').text
-    dashscope_message.append({"role": "user", "content": "{}".format(content)})
+    message.append({"role": "user", "content": "{}".format(content)})
     client = OpenAI(
     api_key=f"{qwen_api_key_info}",  # 替换成真实DashScope的API_KEY
     base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",  # 填写DashScope服务endpoint
@@ -54,17 +55,39 @@ def conversation_qwen(content):
     try:
         response=client.chat.completions.create(
             model=qwen_model_info,
-            messages=dashscope_message
+            messages=message,
+            temperature=temperature,
         )
         answer=response.choices[0].message.content
     except Exception as e:
         answer= "很抱歉，目前无法处理您的请求，请稍后再试。"
-    dashscope_message.append({"role": "assistant", "content": "{}".format(answer)})
+    message.append({"role": "assistant", "content": "{}".format(answer)})
     return answer
 
 
 #阿里云dashscope------------------------------------end
 
+#月之暗面Kimi---------------------------------start
+def conversation_kimi(content):
+    kimi_api_key_info=root.find('kimi_api/api_key').text
+    kimi_model_info=root.find('kimi_api/model').text
+    message.append({"role": "user", "content": "{}".format(content)})
+    client = OpenAI(
+    api_key=f"{kimi_api_key_info}",  
+    base_url="https://api.moonshot.cn/v1", 
+    )
+    try:
+        response=client.chat.completions.create(
+            model=kimi_model_info,
+            messages=message,
+            temperature=temperature,
+        )
+        answer=response.choices[0].message.content
+    except Exception as e:
+        answer= "很抱歉，目前无法处理您的请求，请稍后再试。"
+    message.append({"role": "assistant", "content": "{}".format(answer)})
+    return answer
+    
 
 
 #讯飞星火-------------------------------------start
