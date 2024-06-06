@@ -12,7 +12,7 @@ temperature=float(root.find('llm_setting/temperature').text)
 now_ollama_url=root.find('ollama_api/api_url').text
 
 client = OpenAI(
-    base_url = now_ollama_url,
+    base_url = now_ollama_url+"/v1",
     api_key='ollama', # required, but unused
 )
 
@@ -97,7 +97,7 @@ api_secret = root.find('xinghuo_api/api_secret').text  #填写控制台中获取
 api_key = root.find('xinghuo_api/api_key').text 
 version = root.find('xinghuo_api/version').text   
 
-if version=="v1.5":
+if version=="Lite":
 
     domain = "general"   # v1.5版本
     Spark_url = "wss://spark-api.xf-yun.com/v1.1/chat"  #v1.5环境的地址
@@ -106,11 +106,11 @@ if version=="v2.0":
     domain = "generalv2"
     Spark_url = "wss://spark-api.xf-yun.com/v2.1/chat" 
 
-if version=="v3.0":
+if version=="Pro":
     domain = "generalv3"
     Spark_url = "wss://spark-api.xf-yun.com/v3.1/chat" 
 
-if version=="v3.5":
+if version=="Max":
     domain = "generalv3"
     Spark_url = "wss://spark-api.xf-yun.com/v3.5/chat" 
 

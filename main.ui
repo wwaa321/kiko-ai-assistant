@@ -6,26 +6,33 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>391</width>
+    <width>420</width>
     <height>939</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Kiko AI助手</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: #e9f0f1;
+</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>371</width>
+      <width>401</width>
       <height>861</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <property name="spacing">
-      <number>5</number>
+      <number>7</number>
      </property>
      <item>
       <widget class="QTextBrowser" name="output_content">
@@ -38,7 +45,7 @@
        <property name="minimumSize">
         <size>
          <width>0</width>
-         <height>430</height>
+         <height>450</height>
         </size>
        </property>
        <property name="maximumSize">
@@ -49,8 +56,19 @@
        </property>
        <property name="font">
         <font>
-         <family>Arial</family>
+         <family>微软雅黑</family>
+         <pointsize>10</pointsize>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: #f4f9fa;;
+border: 1px solid #a6bbd0;
+border-radius: 3px;
+padding-top: 10px;;
+</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
        </property>
       </widget>
      </item>
@@ -64,8 +82,20 @@
        </property>
        <property name="font">
         <font>
-         <family>Arial</family>
+         <family>微软雅黑</family>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QComboBox {
+    background-color: #f4f9fa;
+    border: 1px solid #a6bbd0;
+    border-radius: 3px;
+}
+QComboBox:hover {
+    background-color: #bdd2e7;
+	border: 1px solid #a6bbd0;
+    color: #fff;
+}</string>
        </property>
        <item>
         <property name="text">
@@ -114,11 +144,28 @@
        </property>
        <property name="font">
         <font>
-         <family>Arial</family>
+         <family>微软雅黑</family>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLineEdit {
+    background-color: #ffffff;
+    border: 1px solid #a6bbd0;
+    border-radius: 3px;
+}
+QLineEdit:hover {
+    background-color: #bdd2e7;
+	border: 1px solid #a6bbd0;
+}</string>
        </property>
        <property name="text">
         <string>要求：</string>
+       </property>
+       <property name="frame">
+        <bool>false</bool>
+       </property>
+       <property name="cursorMoveStyle">
+        <enum>Qt::LogicalMoveStyle</enum>
        </property>
       </widget>
      </item>
@@ -138,8 +185,18 @@
        </property>
        <property name="font">
         <font>
-         <family>Arial</family>
+         <family>微软雅黑</family>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: #ffffff;;
+border: 1px solid #a6bbd0;
+border-radius: 3px;
+
+</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
        </property>
        <property name="plainText">
         <string/>
@@ -151,6 +208,12 @@
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <property name="spacing">
+        <number>7</number>
+       </property>
+       <property name="rightMargin">
+        <number>3</number>
+       </property>
        <item>
         <widget class="QPushButton" name="button_submit">
          <property name="sizePolicy">
@@ -167,23 +230,36 @@
          </property>
          <property name="maximumSize">
           <size>
-           <width>450</width>
+           <width>350</width>
            <height>50</height>
           </size>
          </property>
          <property name="baseSize">
           <size>
-           <width>361</width>
+           <width>390</width>
            <height>50</height>
           </size>
          </property>
          <property name="font">
           <font>
-           <family>Arial</family>
+           <family>微软雅黑</family>
           </font>
          </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
          <property name="styleSheet">
-          <string notr="true"/>
+          <string notr="true">QPushButton {
+    background-color: #a6bbd0;
+    border: 1px solid #a6bbd0;
+    border-radius: 5px;
+	color:#000;
+}
+QPushButton:hover {
+    background-color: #bdd2e7;
+	border: 1px solid #a6bbd0;
+    color: #000;
+}</string>
          </property>
          <property name="text">
           <string>提交</string>
@@ -206,7 +282,7 @@
          </property>
          <property name="minimumSize">
           <size>
-           <width>100</width>
+           <width>50</width>
            <height>50</height>
           </size>
          </property>
@@ -224,18 +300,200 @@
          </property>
          <property name="font">
           <font>
-           <family>Arial</family>
+           <family>微软雅黑</family>
           </font>
          </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+    background-color: #e9f0f1;;
+    border: 1px solid #a6bbd0;
+    border-radius: 5px;
+	color:#fff;
+}
+QPushButton:hover {
+    background-color: #bdd2e7;
+	border: 1px solid #a6bbd0;
+    color: #fff;
+}</string>
+         </property>
          <property name="text">
-          <string>收藏</string>
+          <string/>
          </property>
         </widget>
        </item>
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,0,0,0,0,0,0">
+       <property name="spacing">
+        <number>7</number>
+       </property>
+       <property name="sizeConstraint">
+        <enum>QLayout::SetFixedSize</enum>
+       </property>
+       <item>
+        <widget class="QPushButton" name="button_Import_Notes_3">
+         <property name="minimumSize">
+          <size>
+           <width>50</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>50</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>微软雅黑</family>
+          </font>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+    background-color: #e9f0f1;;
+    border: 1px solid #a6bbd0;
+    border-radius: 5px;
+	color:#fff;
+}
+QPushButton:hover {
+    background-color: #bdd2e7;
+	border: 1px solid #a6bbd0;
+    color: #fff;
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="button_Import_Notes_2">
+         <property name="minimumSize">
+          <size>
+           <width>50</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>50</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>微软雅黑</family>
+          </font>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+    background-color: #e9f0f1;;
+    border: 1px solid #a6bbd0;
+    border-radius: 5px;
+	color:#fff;
+}
+QPushButton:hover {
+    background-color: #bdd2e7;
+	border: 1px solid #a6bbd0;
+    color: #fff;
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="button_Import_Notes">
+         <property name="minimumSize">
+          <size>
+           <width>50</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>50</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>微软雅黑</family>
+          </font>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+    background-color: #e9f0f1;;
+    border: 1px solid #a6bbd0;
+    border-radius: 5px;
+	color:#fff;
+}
+QPushButton:hover {
+    background-color: #bdd2e7;
+	border: 1px solid #a6bbd0;
+    color: #fff;
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="button_export">
+         <property name="minimumSize">
+          <size>
+           <width>50</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>50</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>微软雅黑</family>
+          </font>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+    background-color: #e9f0f1;;
+    border: 1px solid #a6bbd0;
+    border-radius: 5px;
+	color:#fff;
+}
+QPushButton:hover {
+    background-color: #bdd2e7;
+	border: 1px solid #a6bbd0;
+    color: #fff;
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
        <item>
         <widget class="QPushButton" name="button_clear">
          <property name="sizePolicy">
@@ -246,29 +504,48 @@
          </property>
          <property name="minimumSize">
           <size>
-           <width>0</width>
+           <width>50</width>
            <height>50</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>450</width>
+           <width>50</width>
            <height>50</height>
           </size>
          </property>
          <property name="baseSize">
           <size>
-           <width>361</width>
+           <width>50</width>
            <height>50</height>
           </size>
          </property>
          <property name="font">
           <font>
-           <family>Arial</family>
+           <family>微软雅黑</family>
           </font>
          </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="toolTip">
+          <string/>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+    background-color: #e9f0f1;;
+    border: 1px solid #a6bbd0;
+    border-radius: 5px;
+	color:#fff;
+}
+QPushButton:hover {
+    background-color: #bdd2e7;
+	border: 1px solid #a6bbd0;
+    color: #fff;
+}</string>
+         </property>
          <property name="text">
-          <string>清空当前输入</string>
+          <string/>
          </property>
         </widget>
        </item>
@@ -282,13 +559,13 @@
          </property>
          <property name="minimumSize">
           <size>
-           <width>0</width>
+           <width>50</width>
            <height>50</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>450</width>
+           <width>50</width>
            <height>50</height>
           </size>
          </property>
@@ -300,63 +577,67 @@
          </property>
          <property name="font">
           <font>
-           <family>Arial</family>
+           <family>微软雅黑</family>
           </font>
          </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+    background-color: #e9f0f1;;
+    border: 1px solid #a6bbd0;
+    border-radius: 5px;
+	color:#fff;
+}
+QPushButton:hover {
+    background-color: #bdd2e7;
+	border: 1px solid #a6bbd0;
+    color: #fff;
+}</string>
+         </property>
          <property name="text">
-          <string>复制生成内容</string>
+          <string/>
          </property>
         </widget>
        </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QPushButton" name="button_Import_Notes">
+        <widget class="QPushButton" name="button_todo">
          <property name="minimumSize">
           <size>
-           <width>0</width>
+           <width>50</width>
            <height>50</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>450</width>
+           <width>50</width>
            <height>50</height>
           </size>
          </property>
          <property name="font">
           <font>
-           <family>Arial</family>
+           <family>微软雅黑</family>
           </font>
          </property>
-         <property name="text">
-          <string>导入当前笔记</string>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
          </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="button_export">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>50</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>450</width>
-           <height>50</height>
-          </size>
-         </property>
-         <property name="font">
-          <font>
-           <family>Arial</family>
-          </font>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+    background-color: #e9f0f1;;
+    border: 1px solid #a6bbd0;
+    border-radius: 5px;
+	color:#fff;
+}
+QPushButton:hover {
+    background-color: #bdd2e7;
+	border: 1px solid #a6bbd0;
+    color: #fff;
+}</string>
          </property>
          <property name="text">
-          <string>存入当前笔记</string>
+          <string/>
          </property>
         </widget>
        </item>
@@ -370,11 +651,14 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>391</width>
+     <width>420</width>
      <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_set">
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
     <property name="title">
      <string>配置</string>
     </property>
@@ -382,12 +666,15 @@
     <addaction name="action_obsidian"/>
    </widget>
    <widget class="QMenu" name="menu_info">
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
     <property name="title">
      <string>关于</string>
     </property>
     <addaction name="action_info"/>
     <addaction name="action_help"/>
-    <addaction name="action_feedblack"/>
+    <addaction name="action_sponsor"/>
    </widget>
    <addaction name="menu_set"/>
    <addaction name="menu_info"/>
@@ -413,9 +700,9 @@
     <string>使用帮助</string>
    </property>
   </action>
-  <action name="action_feedblack">
+  <action name="action_sponsor">
    <property name="text">
-    <string>反馈建议</string>
+    <string>赞助支持</string>
    </property>
   </action>
  </widget>

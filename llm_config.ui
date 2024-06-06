@@ -32,7 +32,7 @@
    </property>
    <property name="font">
     <font>
-     <family>Arial</family>
+     <family>微软雅黑</family>
     </font>
    </property>
    <property name="layoutDirection">
@@ -351,11 +351,11 @@
          </size>
         </property>
         <property name="currentIndex">
-         <number>3</number>
+         <number>0</number>
         </property>
         <item>
          <property name="text">
-          <string>v1.5</string>
+          <string>Lite</string>
          </property>
         </item>
         <item>
@@ -365,12 +365,12 @@
         </item>
         <item>
          <property name="text">
-          <string>v3.0</string>
+          <string>Pro</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>v3.5</string>
+          <string>Max</string>
          </property>
         </item>
        </widget>
